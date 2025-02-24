@@ -35,9 +35,76 @@ class Program
 
         while (loop)
         {
-           
+            anos++;
+            double impostosIndustria = 0, impostosComercio = 0, impostosPopulacao = 0;
+
+            // Pagamento de salários e recolhimento de impostos
+            double folhaSalarialPrefeitura = empregadosPrefeitura * salarioPrefeitura;
+            double folhaSalarialComercio = empregadosComercio * salarioComercio;
+            double folhaSalarialIndustria = empregadosIndustria * salarioIndustria;
+
+            double totalSalarios = folhaSalarialPrefeitura + folhaSalarialComercio + folhaSalarialIndustria;
+
+            double impostoEmpregadores = (folhaSalarialComercio + folhaSalarialIndustria) * impostoSalarioEmpregador;
+            double impostoTrabalhadores = totalSalarios * impostoSalarioTrabalhador;
+            double impostoTotalSalarios = impostoEmpregadores + impostoTrabalhadores;
+            impostosPopulacao += impostoTrabalhadores;
+
+            caixaPrefeitura += impostoTotalSalarios;
+            caixaComercio -= folhaSalarialComercio;
+            caixaIndustria -= folhaSalarialIndustria;
+
+            // Pagamento de bolsa social
+            double custoBolsaSocial = beneficiariosSociais * bolsaSocial;
+            caixaPrefeitura -= custoBolsaSocial;
+
+            // Consumo no comércio
+            double dinheiroGasto = totalSalarios - impostoTrabalhadores + custoBolsaSocial;
+            int itensComprados = (int)(dinheiroGasto / precoVendaComercio);
+
+            double receitaComercio = itensComprados * precoVendaComercio;
+            double impostoVendasComercio = receitaComercio * impostoVendaComercio;
+            impostosComercio += impostoVendasComercio;
+            caixaPrefeitura += impostoVendasComercio;
+
+            caixaComercio += receitaComercio - impostoVendasComercio;
+
+            // Reposição de estoque
+            int estoqueReposto = itensComprados;
+            double custoReposicao = estoqueReposto * precoVendaIndustria;
+            if (caixaComercio < custoReposicao)
+            {
+                Console.WriteLine("O comércio não tem capital suficiente.");
+                break;
+            }
+
+            caixaComercio -= custoReposicao;
+            caixaIndustria += custoReposicao;
+
+            // Indústria produz os itens
+            double custoProducaoTotal = estoqueReposto * custoProducaoIndustria;
+            if (caixaIndustria < custoProducaoTotal)
+            {
+                Console.WriteLine("A indústria não tem capital suficiente.");
+                break;
+            }
+
+            caixaIndustria -= custoProducaoTotal;
+            double impostoVendasIndustria = custoReposicao * impostoVendaIndustria;
+            impostosIndustria += impostoVendasIndustria;
+            caixaPrefeitura += impostoVendasIndustria;
+
+            // Exibir relatório anual
+            Console.WriteLine("Ano " + anos);
+            Console.WriteLine($"Prefeitura: R$ {caixaPrefeitura:F2}");
+            Console.WriteLine($"Comércio: R$ {caixaComercio:F2}");
+            Console.WriteLine($"Indústria: R$ {caixaIndustria:F2}");
+            Console.WriteLine($"Impostos da Indústria: R$ {impostosIndustria:F2}");
+            Console.WriteLine($"Impostos da Comércio: R$ {impostosComercio:F2}");
+            Console.WriteLine($"Impostos da População: R$ {impostosPopulacao:F2}");
+            Console.WriteLine("-------------------------------------");
         }
 
-        Console.WriteLine($"Anos decorridos: {anos}");
+        Console.WriteLine("Anos: "+anos);
     }
 }

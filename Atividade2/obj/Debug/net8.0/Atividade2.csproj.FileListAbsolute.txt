@@ -12,3 +12,4 @@ C:\Users\joaoa\Documents\Topicos3\Atividade2\Atividade2\obj\Debug\net8.0\refint\
 C:\Users\joaoa\Documents\Topicos3\Atividade2\Atividade2\obj\Debug\net8.0\Atividade2.pdb
 C:\Users\joaoa\Documents\Topicos3\Atividade2\Atividade2\obj\Debug\net8.0\Atividade2.genruntimeconfig.cache
 C:\Users\joaoa\Documents\Topicos3\Atividade2\Atividade2\obj\Debug\net8.0\ref\Atividade2.dll
+C:\Users\joaoa\Documents\Topicos3\Atividade2\Atividade2\obj\Debug\net8.0\Atividade2.sourcelink.json
